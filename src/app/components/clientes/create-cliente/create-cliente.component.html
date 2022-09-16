@@ -1,0 +1,76 @@
+<app-sidebar></app-sidebar>
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista todos los clientes de la tienda.</p>
+
+    </div>
+</div>
+<form  #clienteForm="ngForm">
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Registro de cliente</h5>
+    </div>
+    <div class="card-body">
+        
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Nombres</label>
+                    <input class="form-control" type="text" placeholder="Nombres Completos" [(ngModel)]="cliente.nombres"
+                     name="nombres" required  #nombre="ngModel">
+                     <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            El nombre es obligatorio
+                        </div>
+                     </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Apellidos</label>
+                    <input class="form-control" type="text" placeholder="Apellidos Completos" [(ngModel)]="cliente.apellidos" 
+                    name="apellidos" required #apellido="ngModel">
+                    <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.touched)">
+                        <div *ngIf="apellido.errors.required">
+                            El apellido es obligatorio
+                        </div>
+                     </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Correo electrónico</label>
+                    <input class="form-control" type="text" placeholder="Correo electrónico"  [(ngModel)]="cliente.email" 
+                    name="email" required>
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Telefono</label>
+                    <input class="form-control" type="text" placeholder="Telefono"  [(ngModel)]="cliente.telefono" 
+                    name="telefono" required>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Fecha nacimiento</label>
+                    <input class="form-control" type="date"  [(ngModel)]="cliente.fechaNac" 
+                    name="fechaNac" required>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">DNI</label>
+                    <input class="form-control" type="number" placeholder="DNI"  [(ngModel)]="cliente.dni"
+                    name="dni"   required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">Genero</label>
+                    <select class="form-control custom-select" name="genero"  [(ngModel)]="cliente.genero" >
+                        <option [ngValue]="undefined" disabled>Seleccionar</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+            </div>
+  
+    </div>
+    <div class="card-footer">
+        <button role="button"  class="btn btn-info mr-3" (click)="create()" [disabled]="!clienteForm.form.valid">Crear </button>
+        <button class="btn btn-warning">Regresar</button>
+    </div>
+</div>
+</form>
