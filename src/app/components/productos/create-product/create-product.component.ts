@@ -23,8 +23,6 @@ export class CreateProductComponent implements OnInit {
   categorias:Categoria[];
   marcas:Marca[];
 
-  public imgSelect : any | ArrayBuffer = 'assets/img/R.jpg';
-  public file : any = undefined;
 
   constructor(private productService: ProductoService,
     private router: Router,
@@ -66,63 +64,5 @@ export class CreateProductComponent implements OnInit {
     
   }
 
-  fileChangeEvent(event:any):void{
-    var file :any;
-    if(event.target.files && event.target.files[0]){
-      file = <File>event.target.files[0];
-    }else{
-      iziToast.show({
-          title: 'ERROR',
-          titleColor: '#FF0000',
-          color: '#FFF',
-          class: 'text-danger',
-          position: 'topRight',
-          message: 'No hay un imagen de envio'
-      });
-    }
-
-    if(file.size <= 4000000){
-
-      if(file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' || file.type == 'image/gif' || file.type == 'image/jpeg'){
-    
-        const reader = new FileReader();
-        reader.onload = e => this.imgSelect = reader.result;
-        console.log(this.imgSelect);
-        
-        reader.readAsDataURL(file);
-
-         $('#input-portada').text(file.name);
-        this.file = file;
-
-      }else{
-        iziToast.show({
-            title: 'ERROR',
-            titleColor: '#FF0000',
-            color: '#FFF',
-            class: 'text-danger',
-            position: 'topRight',
-            message: 'El archivo debe ser una imagen'
-        });
-         $('#input-portada').text('Seleccionar imagen');
-        this.imgSelect = 'assets/img/R.jpg';
-        this.file = undefined;
-      }
-    }else{
-      iziToast.show({
-          title: 'ERROR',
-          titleColor: '#FF0000',
-          color: '#FFF',
-          class: 'text-danger',
-          position: 'topRight',
-          message: 'La imagen no puede superar los 4MB'
-      });
-       $('#input-portada').text('Seleccionar imagen');
-      this.imgSelect = 'assets/img/R.jpg';
-      this.file = undefined;
-    }
-    
-    console.log(this.file);
-    
-  }
 
 }

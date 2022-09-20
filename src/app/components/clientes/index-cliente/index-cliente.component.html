@@ -4,7 +4,7 @@
   <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
     <p class="text-muted">Este módulo lista todos los clientes de la tienda.</p>
     <p class="font-size-sm font-weight-medium pl-md-4">
-      <a class="text-nowrap" [routerLink]="['/panel/clientes/registro']">Registrar nuevo<i class="cxi-angle-right font-size-base align-middle ml-1">
+      <a class="text-nowrap" [routerLink]="['/clientes/registro']">Registrar nuevo<i class="cxi-angle-right font-size-base align-middle ml-1">
       </i></a>
     </p>
   </div>
@@ -64,5 +64,5 @@
           </div>
       </div>
 <!--<app-pagination></app-pagination>-->
-<app-pagination *ngIf="paginator" [paginator]="paginator"></app-pagination>
+<app-pagination *ngIf="paginator" [paginator]="paginator" ></app-pagination>
 </div>  

@@ -1,10 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent ,HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable,tap, throwError } from 'rxjs';
 import { Categoria } from '../models/categoria';
 import { Product } from '../models/product';
 import { GLOBAL } from './GLOBAL';
+import Swal from 'sweetalert2';
+import { Inventario } from '../models/inventario';
 
 declare var iziToast: any;
 
@@ -19,7 +21,7 @@ export class ProductoService {
   constructor(private http: HttpClient, private Router: Router) {
     this.url = GLOBAL.url;
   }
-  getClientes(page: number): Observable<any> {
+  getProducts(page: number): Observable<any> {
     return this.http.get(this.url +'/products' + '/page/' + page).pipe(
       tap((response: any) => {
         (response.content as Product[]).forEach((product) => {
@@ -27,7 +29,7 @@ export class ProductoService {
       }),
       map((response: any) => {
         (response.content as Product[]).map((product) => {
-          product.titulo = product.titulo.toUpperCase();
+         // product.titulo = product.titulo.toUpperCase();
           return product;
         });
         return response;
@@ -60,6 +62,47 @@ export class ProductoService {
 
   }
 
+  getProducto(id): Observable<Product> {
+    return this.http.get<Product>(`${this.url+'/products'}/${id}`).pipe(
+      catchError((e) => {
+        this.Router.navigate(['/productos']);
+        console.log(e.error.mensaje);
+        Swal.fire(' Error al editar', e.error.mensaje, 'error');
+        //convetirmos el error a un observable
+        return throwError(() => e);
+      })
+    );
+  }
+  getInventario(id): Observable<Inventario> {
+    return this.http.get<Inventario>(`${this.url+'/products/inventario'}/${id}`).pipe(
+      catchError((e) => {
+        //this.Router.navigate(['/clientes']);
+        console.log(e.error.mensaje);
+        Swal.fire(' Error al obtener', e.error.mensaje, 'error');
+        return throwError(() => e);
+      })
+    );
+  }
+
+
+  subirFoto(file: File, id): Observable<HttpEvent<{}>> {
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', id);
+
+    const req= new HttpRequest('POST',`${this.url}/products`+'/upload', formData,{
+      reportProgress:true
+    });
+
+    return this.http.request(req).pipe(
+      catchError(e =>{
+     // this.isNoAutorizado(e);
+      return throwError(() => e);
+      })
+    );
+    }
+
+
   getCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.url + '/products/categories').pipe(
       catchError(e => {
@@ -75,5 +118,21 @@ export class ProductoService {
       })
     );
   }
+
+  delete(id: number): Observable<Product> {
+    return this.http
+      .delete<Product>(`${this.url}/products/${id}`, {
+        headers: this.httheaders,
+      })
+      .pipe(
+        catchError((e) => {
+          console.log(e.error.mensaje);
+          Swal.fire(e.error.mensaje, e.error.error, 'error');
+          //return throwError(e);
+          return throwError(() => e);
+        })
+      );
+  }
+
 }
 

@@ -1,0 +1,49 @@
+<div  class="abrir-modal animacion fadeIn" *ngIf="modalService.modal" >
+    <div *ngIf="modalService.modal" class="modal" tabindex="-1" style="display: block;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text-dark">{{title}}</h3>
+            <button (click)="cerrarModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <ul *ngIf="producto" class="list-group text-dark mb-3">
+                    <li class="list-group-item active">{{producto.titulo}}</li>
+                    <li class="list-group-item">{{producto.stock}}</li>
+                    <li class="list-group-item">{{producto.precio}}</li>
+                    <li class="list-group-item">{{producto.marca.nombre}}</li>
+                    <li class="list-group-item">{{producto.categoria.nombre}}</li>
+                  </ul>
+                  <div class="input-group mb-3">
+                    <input (change)="selecionarFoto($event)" type="file" class="form-control" id="inputGroupFile04"
+                      aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    <button (click)="subirFoto()"  [disabled]="!fotoSeleccionada" class="btn btn-outline-secondary"
+                      type="button" id="inputGroupFileAddon04">Subir</button>
+                  </div>
+                  <div *ngIf="progreso>0" class="progress" style="height:40px">
+                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                      aria-label="Info striped example" [ngStyle]="{width: progreso+'%'}" attr.aria-valuenow="{progreso}"
+                      aria-valuemin="0" aria-valuemax="100">
+                      {{progreso}}%
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm">
+                  <img *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
+                    alt="{{producto.imagen}}" class="img-thumbnail rounded">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button (click)="cerrarModal()" type="button" class="btn btn-dark" data-bs-dismiss="modal">
+              Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

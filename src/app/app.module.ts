@@ -15,6 +15,9 @@ import { CreateClienteComponent } from './components/clientes/create-cliente/cre
 import { CreateProductComponent } from './components/productos/create-product/create-product.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { IndexProductComponent } from './components/productos/index-product/index-product.component';
+import { ProductDetalleComponent } from './components/productos/product-detalle/product-detalle.component';
+import { PaginattionComponent } from './components/productos/pagination/pagination.component';
+import { InventarioProductComponent } from './components/productos/inventario-product/inventario-product.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,11 @@ import { IndexProductComponent } from './components/productos/index-product/inde
     CreateClienteComponent,
     CreateProductComponent,
     PaginationComponent,
-    IndexProductComponent
+    IndexProductComponent,
+    ProductDetalleComponent,
+    PaginationComponent,
+    PaginattionComponent,
+    InventarioProductComponent
   ],
   imports: [
     BrowserModule,
