@@ -1,0 +1,47 @@
+<app-sidebar></app-sidebar>
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Categorías</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">En este módulo se crea las categorías asociadas a un producto.</p>
+    </div>
+</div>
+<form #categoriaForm="ngForm">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de categoría</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Nombre</label>
+                    <input class="form-control" type="text" placeholder="Nombres Completos"
+                        [(ngModel)]="categoria.nombre" name="nombre" required #nombre="ngModel">
+                    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            El nombre es obligatorio
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 form-group">
+                    <label for="validationCustom01" class="form-label">Descripción</label>
+                    <input class="form-control" type="text" placeholder="descripción"
+                        [(ngModel)]="categoria.descripcion" name="descripcion">
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button role="button" class="btn btn-info mr-3" (click)="create()" [disabled]="!categoriaForm.form.valid"
+                *ngIf="!categoria.id else elseBlock">Crear
+            </button>
+            <ng-template #elseBlock>
+                <button role="button" class="btn btn-info mr-3" (click)="update()"
+                    [disabled]="!categoriaForm.form.valid">Actualizar
+                </button>
+            </ng-template>
+                <button [routerLink]="['/categorias']" class="btn btn-danger">Regresar</button>
+        </div>
+    </div>
+</form>
