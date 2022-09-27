@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
-import Swal from 'sweetalert2';
 
 declare var iziToast: any;
 
@@ -20,6 +19,18 @@ export class CreateClienteComponent implements OnInit {
     private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.cargarCliente();
+  }
+  cargarCliente(): void {
+    this.activateRoute.params.subscribe((params) => {
+      let id = params['id'];
+      if (id) {
+        this.clienteService
+          .getCliente(id)
+          .subscribe((cliente) => (this.cliente = cliente));
+      }
+    });
+ 
   }
 
   create() {

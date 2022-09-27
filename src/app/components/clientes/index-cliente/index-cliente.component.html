@@ -53,7 +53,7 @@
                             Opciones
                           </button>
                           <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Editar</a>
+                            <a [routerLink]="['/clientes/registro',cliente.id]" class="dropdown-item">Editar</a>
                             <a href="#" class="dropdown-item">Eliminar</a>
                           </div>
                         </div>
@@ -63,6 +63,5 @@
               </table>
           </div>
       </div>
-<!--<app-pagination></app-pagination>-->
 <app-pagination *ngIf="paginator" [paginator]="paginator" ></app-pagination>
 </div>  

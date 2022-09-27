@@ -7,6 +7,7 @@ import { Product } from '../models/product';
 import { GLOBAL } from './GLOBAL';
 import Swal from 'sweetalert2';
 import { Inventario } from '../models/inventario';
+import { Marca } from '../models/marca';
 
 declare var iziToast: any;
 
@@ -111,8 +112,8 @@ export class ProductoService {
     );
   }
 
-  getMarcas(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.url + '/products/marcas').pipe(
+  getMarcas(): Observable<Marca[]> {
+    return this.http.get<Marca[]>(this.url + '/products/marcas').pipe(
       catchError(e => {
         return throwError(() => e);
       })

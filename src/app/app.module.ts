@@ -18,6 +18,8 @@ import { IndexProductComponent } from './components/productos/index-product/inde
 import { ProductDetalleComponent } from './components/productos/product-detalle/product-detalle.component';
 import { PaginattionComponent } from './components/productos/pagination/pagination.component';
 import { InventarioProductComponent } from './components/productos/inventario-product/inventario-product.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { FormComponent } from './components/categorias/form.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { InventarioProductComponent } from './components/productos/inventario-pr
     ProductDetalleComponent,
     PaginationComponent,
     PaginattionComponent,
-    InventarioProductComponent
+    InventarioProductComponent,
+    CategoriasComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,

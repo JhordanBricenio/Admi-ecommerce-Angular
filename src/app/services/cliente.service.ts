@@ -4,9 +4,9 @@ import { GLOBAL } from './GLOBAL';
 import { Cliente } from '../models/cliente';
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
-declare var iziToast:any;
+declare var iziToast: any;
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export class ClienteService {
   private httheaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private Router: Router) {
-    this.url= GLOBAL.url;
-   }
+    this.url = GLOBAL.url;
+  }
 
-   getClientes(page: number): Observable<any> {
+  getClientes(page: number): Observable<any> {
     //return of(CLIENTES);
-    return this.http.get(this.url +'/clientes' + '/page/' + page).pipe(
+    return this.http.get(this.url + '/clientes' + '/page/' + page).pipe(
       tap((response: any) => {
         //console.log('ClientesService tap 01');
         (response.content as Cliente[]).forEach((cliente) => {
@@ -39,9 +39,9 @@ export class ClienteService {
     );
   }
 
-  create(cliente: Cliente){
-  return this.http
-      .post(this.url +'/clientes', cliente, { headers: this.httheaders })
+  create(cliente: Cliente) {
+    return this.http
+      .post(this.url + '/clientes', cliente, { headers: this.httheaders })
       .pipe(
         map((response: any) => response.cliente as Cliente),
         catchError((e) => {
@@ -49,17 +49,27 @@ export class ClienteService {
             return throwError(() => e);
           }
           console.log(e.error.mensaje);
-         iziToast.show({
-            title:'Error',
-            titleColor:'#FF0000',
-            class:'text-danger',
-            position:'topRight',
-            message:`${e.error.mensaje}`
+          iziToast.show({
+            title: 'Error',
+            titleColor: '#FF0000',
+            class: 'text-danger',
+            position: 'topRight',
+            message: `${e.error.mensaje}`
           });
-         // swal.fire(e.error.mensaje, e.error.error, 'error');
+          // swal.fire(e.error.mensaje, e.error.error, 'error');
           return throwError(() => e);
         })
       );
 
-    }
+  }
+
+  getCliente(id): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.url+'/clientes'}/${id}`).pipe(
+      catchError((e) => {
+        console.log(e.error.mensaje);
+        Swal.fire(' Error al obtener', e.error.mensaje, 'error');
+        return throwError(() => e);
+      })
+    );
+  }
 }

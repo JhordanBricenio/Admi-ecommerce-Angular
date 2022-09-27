@@ -8,6 +8,8 @@ import { CreateProductComponent } from "./components/productos/create-product/cr
 import { IndexProductComponent } from "./components/productos/index-product/index-product.component";
 import { ProductDetalleComponent } from "./components/productos/product-detalle/product-detalle.component";
 import { InventarioProductComponent } from "./components/productos/inventario-product/inventario-product.component";
+import { CategoriasComponent } from "./components/categorias/categorias.component";
+import { FormComponent } from "./components/categorias/form.component";
 
 const appRoute:Routes=[
     {path:'', redirectTo:'inicio', pathMatch:'full'},
@@ -15,11 +17,16 @@ const appRoute:Routes=[
     {path:'clientes', component:IndexClienteComponent},
     {path:'clientes/page/:page', component:IndexClienteComponent},
     {path:'clientes/registro', component:CreateClienteComponent},
+    {path:'clientes/registro/:id', component:CreateClienteComponent},
 
-    {path:'productos', component:IndexProductComponent, canActivate:[]},
-    {path:'productos/registro', component:CreateProductComponent, canActivate:[]},
+    {path:'productos', component:IndexProductComponent},
+    {path:'productos/registro', component:CreateProductComponent},
     {path:'productos/page/:page', component:IndexProductComponent},
     {path:'productos/inventario/:id', component:InventarioProductComponent},
+
+    {path:'categorias', component:CategoriasComponent},
+    {path:'categorias/registro', component:FormComponent},
+    {path:'categorias/registro/:id', component:FormComponent},
 
 
    /* {path:'panel', children:[
