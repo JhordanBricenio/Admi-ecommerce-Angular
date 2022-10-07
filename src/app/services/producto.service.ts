@@ -63,13 +63,26 @@ export class ProductoService {
 
   }
 
+  update(producto: Product): Observable<any> {
+    return this.http.put<any>(`${this.url+'/products'}/${producto.id}`, producto, { headers: this.httheaders }).pipe(
+      catchError(e => {
+        if (e.status == 400) {
+          return throwError(() => e);
+        }
+
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(() => e);
+      })
+    );
+  }
+
+
   getProducto(id): Observable<Product> {
     return this.http.get<Product>(`${this.url+'/products'}/${id}`).pipe(
       catchError((e) => {
         this.Router.navigate(['/productos']);
-        console.log(e.error.mensaje);
         Swal.fire(' Error al editar', e.error.mensaje, 'error');
-        //convetirmos el error a un observable
         return throwError(() => e);
       })
     );
@@ -77,8 +90,6 @@ export class ProductoService {
   getInventario(id): Observable<Inventario> {
     return this.http.get<Inventario>(`${this.url+'/products/inventario'}/${id}`).pipe(
       catchError((e) => {
-        //this.Router.navigate(['/clientes']);
-        console.log(e.error.mensaje);
         Swal.fire(' Error al obtener', e.error.mensaje, 'error');
         return throwError(() => e);
       })
@@ -127,7 +138,7 @@ export class ProductoService {
       })
       .pipe(
         catchError((e) => {
-          console.log(e.error.mensaje);
+          //console.log(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
           //return throwError(e);
           return throwError(() => e);

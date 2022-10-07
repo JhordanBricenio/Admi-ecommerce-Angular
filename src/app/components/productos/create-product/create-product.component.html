@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<form>
+<form #clienteForm="ngForm">
     <div class="card box-shadow-sm">
         <div class="card-header">
             <h5 style="margin-bottom: 0px">Registro de producto</h5>
@@ -22,25 +22,25 @@
                             <label for="">Titulo de producto</label>
                             <input type="text" class="form-control" [(ngModel)]="producto.titulo" name="titulo" placeholder="Titulo de producto" required />
                         </div>
-                        <div class="col-lg-4 form-group">
+                        <div class="col-lg-5 form-group">
                             <label for="">Stock</label>
-                            <input type="number" [(ngModel)]="producto.stock" name="stock" class="form-control" placeholder="Cantidad inicial" required />
+                            <input type="number" [(ngModel)]="producto.stock" name="stock" class="form-control" placeholder="Cantidad" required />
                         </div>
-                        <div class="col-lg-4 form-group">
+                        <div class="col-lg-5 form-group">
                             <label for="">Precio</label>
-                            <input type="number" class="form-control" name="precio" placeholder="Precio" required />
+                            <input type="number" [(ngModel)]="producto.precio" class="form-control" name="precio" placeholder="Precio" required />
                         </div>
-                        <div class="col-lg-4 form-group">
+                        <div class="col-lg-5 form-group">
                             <label for="">Categoría</label>
-                            <select class="form-control custom-select" [(ngModel)]="producto.categoria"
+                            <select [compareWith]="compararCategoria" class="form-control custom-select" [(ngModel)]="producto.categoria"
                             name="categoria" required>
                                 <option [ngValue]="undefined">Seleccionar</option>
                                 <option *ngFor="let categoria of categorias" [ngValue]="categoria">{{categoria.nombre}}</option>
                             </select>
                         </div>
-                        <div class="col-lg-4 form-group">
+                        <div class="col-lg-5 form-group">
                             <label for="">Marca</label>
-                            <select class="form-control custom-select" [(ngModel)]="producto.marca"
+                            <select [compareWith]="compararMarca" class="form-control custom-select" [(ngModel)]="producto.marca"
                             name="marca" required>
                                 <option [ngValue]="undefined">Seleccionar</option>
                                 <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
@@ -62,8 +62,15 @@
             </div>
         </div>
         <div class="card-footer">
-            <button class="btn btn-primary mr-3" (click)="create()">Crear producto</button>
-            <button class="btn btn-warning">Regresar</button>
+            <button class="btn btn-primary mr-3" (click)="create()" *ngIf="!producto.id else elseBlock" [disabled]="!clienteForm.form.valid">
+                Crear
+            </button>
+            <ng-template #elseBlock>
+                <button class="btn btn-primary mr-3" (click)="update()" [disabled]="!clienteForm.form.valid">
+                    Actualizar
+                </button>
+            </ng-template>
+            <button [routerLink]="['/productos']" class="btn btn-danger">Regresar</button>
         </div>
     </div>
 </form>

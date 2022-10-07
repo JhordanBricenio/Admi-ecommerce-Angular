@@ -21,12 +21,9 @@ export class ClienteService {
   }
 
   getClientes(page: number): Observable<any> {
-    //return of(CLIENTES);
     return this.http.get(this.url + '/clientes' + '/page/' + page).pipe(
       tap((response: any) => {
-        //console.log('ClientesService tap 01');
         (response.content as Cliente[]).forEach((cliente) => {
-          //console.log(cliente);
         });
       }),
       map((response: any) => {
@@ -68,6 +65,31 @@ export class ClienteService {
       catchError((e) => {
         console.log(e.error.mensaje);
         Swal.fire(' Error al obtener', e.error.mensaje, 'error');
+        return throwError(() => e);
+      })
+    );
+  }
+
+  update(cliente: Cliente): Observable<any> {
+    return this.http.put<any>(`${this.url+'/clientes'}/${cliente.id}`, cliente, { headers: this.httheaders }).pipe(
+      catchError(e => {
+
+        if (e.status == 400) {
+          return throwError(() => e);
+        }
+
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(() => e);
+      })
+    );
+  }
+
+  delete(id: number): Observable<Cliente> {
+    return this.http.delete<Cliente>(`${this.url+'/clientes'}/${id}`, { headers: this.httheaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(() => e);
       })
     );

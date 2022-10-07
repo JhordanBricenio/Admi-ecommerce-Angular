@@ -43,7 +43,7 @@
                 </thead>
                 <tbody *ngFor="let cliente of clientes, let indice=index">
                   <tr>
-                    <th scope="row">{{indice+1}}</th>
+                    <th scope="row">{{cliente.id}}</th>
                     <td>{{ cliente.nombres }}</td>
                     <td>{{ cliente.apellidos }}</td>
                     <td>{{ cliente.email }}</td>
@@ -54,7 +54,7 @@
                           </button>
                           <div class="dropdown-menu">
                             <a [routerLink]="['/clientes/registro',cliente.id]" class="dropdown-item">Editar</a>
-                            <a href="#" class="dropdown-item">Eliminar</a>
+                            <a style="cursor:pointer ;" class="dropdown-item" (click)="delete(cliente)">Eliminar</a>
                           </div>
                         </div>
                     </td>

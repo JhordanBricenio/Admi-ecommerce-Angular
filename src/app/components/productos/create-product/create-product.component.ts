@@ -4,6 +4,7 @@ import { Categoria } from 'src/app/models/categoria';
 import { Marca } from 'src/app/models/marca';
 import { Product } from 'src/app/models/product';
 import { ProductoService } from 'src/app/services/producto.service';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 declare var $:any;
@@ -33,6 +34,21 @@ export class CreateProductComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getCategorias().subscribe(categories=>this.categorias= categories);
     this.productService.getMarcas().subscribe(marcas=>this.marcas= marcas);
+    this.cargarProducto();
+  }
+
+  cargarProducto(): void {
+    this.activateRoute.params.subscribe((params) => {
+      let id = params['id'];
+      if (id) {
+        this.productService
+          .getProducto(id)
+          .subscribe(producto=>   
+            this.producto = producto
+            );
+      }
+    });
+
   }
 
   create(){
@@ -62,6 +78,33 @@ export class CreateProductComponent implements OnInit {
         console.log(err.error.errors);
       });
     
+  }
+  update(){
+    this.productService.update(this.producto).subscribe(
+        json => {
+          this.router.navigate(['/productos']);
+          Swal.fire('Producto Actualizado', `${json.mensaje}: ${json.producto.titulo}`, 'success');
+        },
+        err => {
+          this.errors = err.error.errors as string[];
+          console.error('Código del error desde el backend: ' + err.status);
+          console.error(err.error.errors);
+        })
+  }
+
+
+  compararCategoria(o1:Categoria, o2:Categoria):boolean{
+    if(o1 === undefined && o2 === undefined){
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
+  }
+
+  compararMarca(o1:Marca, o2:Marca):boolean{
+    if(o1 === undefined && o2 === undefined){
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
+
+declare var iziToast: any;
 
 @Component({
   selector: 'app-index-cliente',
@@ -16,7 +18,8 @@ export class IndexClienteComponent implements OnInit {
   
 
   constructor(private clienteService:ClienteService,
-    private activateRoute: ActivatedRoute) { }
+    private activateRoute: ActivatedRoute
+    ,private router:Router) { }
 
   ngOnInit(): void {
     this.activateRoute.paramMap.subscribe((params) => {
@@ -40,6 +43,22 @@ export class IndexClienteComponent implements OnInit {
           }
         );
     });
+  }
+
+  delete(cliente: Cliente): void {
+    this.clienteService.delete(cliente.id).subscribe(
+      response => {
+        this.clientes = this.clientes.filter((cli) => cli !== cliente);
+        this.router.navigate(['/clientes']);
+        iziToast.show({
+          title: 'success',
+          titleColor: '#1DC74C',
+          class: 'text-success',
+          position: 'topRight',
+          message: `El cliente ${cliente.nombres} ha sido eliminado con éxito`,
+        });
+
+      });
   }
 
 }

@@ -45,7 +45,6 @@ import { FormComponent } from './components/categorias/form.component';
     FormsModule,
     HttpClientModule,
     routing,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

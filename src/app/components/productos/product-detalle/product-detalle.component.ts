@@ -5,6 +5,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 
 import Swal from 'sweetalert2';
 import { ModalService } from 'src/app/services/modal.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -21,18 +22,15 @@ export class ProductDetalleComponent implements OnInit {
 
 
   constructor(private productService: ProductoService,
-    public modalService:ModalService) { }
+    public modalService:ModalService, private activateRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     
   }
 
-
-
   selecionarFoto(event){
     this.fotoSeleccionada = event.target.files[0];
     this.progreso=0;
-    console.log(this.fotoSeleccionada);
     if(this.fotoSeleccionada.type.indexOf('image')<0){
       Swal.fire(
         'Error selecionar Imagen ',

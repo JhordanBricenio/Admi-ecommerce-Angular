@@ -21,6 +21,7 @@ const appRoute:Routes=[
 
     {path:'productos', component:IndexProductComponent},
     {path:'productos/registro', component:CreateProductComponent},
+    {path:'productos/registro/:id', component:CreateProductComponent},
     {path:'productos/page/:page', component:IndexProductComponent},
     {path:'productos/inventario/:id', component:InventarioProductComponent},
 

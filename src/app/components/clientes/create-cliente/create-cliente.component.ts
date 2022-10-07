@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
+import Swal from 'sweetalert2';
 
 declare var iziToast: any;
 
@@ -30,7 +31,7 @@ export class CreateClienteComponent implements OnInit {
           .subscribe((cliente) => (this.cliente = cliente));
       }
     });
- 
+
   }
 
   create() {
@@ -52,6 +53,20 @@ export class CreateClienteComponent implements OnInit {
       }
     );
 
+  }
+
+  update(){
+    this.clienteService.update(this.cliente)
+      .subscribe(
+        json => {
+          this.router.navigate(['/clientes']);
+          Swal.fire('Cliente Actualizado', `${json.mensaje}: ${json.cliente.nombres}`, 'success');
+        },
+        err => {
+          this.errors = err.error.errors as string[];
+          console.error('Código del error desde el backend: ' + err.status);
+          console.error(err.error.errors);
+        })
   }
 
 }

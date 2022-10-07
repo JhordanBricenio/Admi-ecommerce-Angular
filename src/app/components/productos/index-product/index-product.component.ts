@@ -34,7 +34,7 @@ export class IndexProductComponent implements OnInit {
         .pipe(
           tap((response) => {
             (response.content as Product[]).forEach((product) => {
-              console.log(product.titulo);
+            //  console.log(product.titulo);
             });
           })
         )
@@ -53,6 +53,10 @@ export class IndexProductComponent implements OnInit {
     });
   }
 
+  
+  
+
+
   abrirModal(producto: Product) {
     this.productoSeleccionado = producto;
     this.modalService.abrirModal();
@@ -70,7 +74,7 @@ export class IndexProductComponent implements OnInit {
     swalWithBootstrapButtons
       .fire({
         title: 'Está seguro?',
-        text: `Seguro que desea eliminar al Cliente! ${producto.titulo}`,
+        text: `Seguro que desea eliminar al Producto! ${producto.titulo}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, eliminar!',
@@ -82,8 +86,8 @@ export class IndexProductComponent implements OnInit {
           this.productSevice.delete(producto.id).subscribe((response) => {
             this.productos = this.productos.filter((cli) => cli !== producto);
             swalWithBootstrapButtons.fire(
-              'Cliente Eliminado!',
-              `Cliente ${producto.titulo} Eliminado con éxito.`,
+              'Producto Eliminado!',
+              `Producto ${producto.titulo} Eliminado con éxito.`,
               'success'
             );
           });
