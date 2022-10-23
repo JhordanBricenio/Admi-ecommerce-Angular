@@ -11,11 +11,26 @@
     <ul class="navbar-nav ml-auto d-none d-lg-flex align-items-center">
 
         <li class="nav-item">
-            <a class="nav-link py-0" href="../components/typography.html">
+            <a class="nav-link py-0" *ngIf="!adminService.isAuntenitcated()" [routerLink]="['/login']" routerLinkActive="active">
                 <i class="cxi-profile align-middle mt-n1 mr-2"></i>
                 Cuenta
             </a>
         </li>
+        <div *ngIf="adminService.isAuntenitcated()" class="dropdown">
+            <button [routerLink]="['/']" class="btn btn-outline-secondary dropdown-toggle" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                {{adminService.usuario?.nombres}}
+            </button>
+            <div class="dropdown-menu dropdown-menu-dark">
+                <a [routerLink]="['/cuenta/perfil']" routerLinkActive="active" class="dropdown-item">
+                    <i class="ci-profile me-2"></i>
+                    Perfil
+                    <!-- <span class="badge rounded-pill bg-danger ms-2">3</span>-->
+                </a>
+                <button (click)="logout()" class="dropdown-item" type="submit">Cerrar Sessión</button>
+
+            </div>
+        </div>
 
     </ul>
 </header>
@@ -43,10 +58,12 @@
         <h6 class="font-size-lg text-light px-4 mt-2 mb-3">Contenido</h6>
         <hr class="hr-gradient hr-light mb-2 opacity-25">
         <nav class="nav nav-light">
-            <a class="nav-link px-4 " [routerLink]="['/inicio']">Inicio</a>
-            <a class="nav-link px-4 " [routerLink]="['/clientes']">Clientes</a>
-            <a class="nav-link px-4 " [routerLink]="['/productos']">Productos</a>
-            <a class="nav-link px-4 " [routerLink]="['/categorias']">Categorias</a>
+            <a class="nav-link px-4 " [routerLink]="['/inicio']" routerLinkActive="active">Inicio</a>
+            <a class="nav-link px-4 " [routerLink]="['/clientes']" routerLinkActive="active">Clientes</a>
+            <a class="nav-link px-4 " [routerLink]="['/productos']" routerLinkActive="active">Productos</a>
+            <a class="nav-link px-4 " [routerLink]="['/cupones']" routerLinkActive="active">Cupones</a>
+            <a class="nav-link px-4 " [routerLink]="['/categorias']" routerLinkActive="active">Categorias</a>
+            <a class="nav-link px-4 " [routerLink]="['/contacto']" routerLinkActive="active">Mensajes</a>
 
         </nav>
     </div>

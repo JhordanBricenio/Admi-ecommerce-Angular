@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,12 @@ import { PaginattionComponent } from './components/productos/pagination/paginati
 import { InventarioProductComponent } from './components/productos/inventario-product/inventario-product.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { FormComponent } from './components/categorias/form.component';
+import { CategoriaDetalleComponent } from './components/categorias/categoria-detalle/categoria-detalle.component';
+import { IndexContactoComponent } from './components/contacto/index-contacto/index-contacto.component';
+import { VariedadProductoComponent } from './components/productos/variedad-producto/variedad-producto.component';
+import { GaleriaComponent } from './components/productos/galeria/galeria.component';
+import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
+import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupon.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +44,21 @@ import { FormComponent } from './components/categorias/form.component';
     PaginattionComponent,
     InventarioProductComponent,
     CategoriasComponent,
-    FormComponent
+    FormComponent,
+    CategoriaDetalleComponent,
+    IndexContactoComponent,
+    VariedadProductoComponent,
+    GaleriaComponent,
+    CreateCuponComponent,
+    IndexCuponComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CKEditorModule,
     HttpClientModule,
+
     routing,
   ],
   providers: [],

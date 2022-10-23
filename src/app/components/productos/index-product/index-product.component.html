@@ -58,6 +58,8 @@
                   <a [routerLink]="['/productos/registro', producto.id]" class="dropdown-item">Editar</a>
                   <a (click)="delete(producto)" class="dropdown-item" style="cursor:pointer ;">Eliminar</a>
                   <a class="dropdown-item" [routerLink]="['/productos/inventario', producto.id]" >Inventario</a>
+                  <a class="dropdown-item" [routerLink]="['/productos/variedad', producto.id]" >Variedad</a>
+                  <a class="dropdown-item" [routerLink]="['/productos/galeria', producto.id]" >Galeria</a>
                 </div>
               </div>
             </td>

@@ -6,27 +6,27 @@ height: 100%;">
             <h3 class="modal-title mt-4 mb-0 text-center mb-5">Iniciar Sesión</h3>
             <p class="font-size-sm text-muted text-center">Inicie sesión en su cuenta con el correo electrónico y la contraseña proporcionados
                 durante el registro.</p>
-            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <form>
                 <div class="form-group">
                     <label for="signin-email">Correo Electrónico</label>
-                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Your email address"
+                    <input type="email" class="form-control" name="email" [(ngModel)]="cliente.email" placeholder="Tu correo electrónico"
                         required="">
                 </div>
                 <div class="form-group">
                     <label for="signin-password" class="form-label">Contraseña</label>
                     <div class="cs-password-toggle input-group-overlay">
                         <input type="password" class="form-control appended-form-control" name="email"
-                         [(ngModel)]="user.password" placeholder="Your password" required="">
+                         [(ngModel)]="cliente.password" placeholder="Tu contraseña" required="">
                         <div class="input-group-append-overlay">
                             <label class="btn cs-password-toggle-btn input-group-text">
                                 <input type="checkbox" class="custom-control-input">
                                 <i class="cxi-eye cs-password-toggle-indicator"></i>
-                                <span class="sr-only">Show password</span>
+                                <span class="sr-only">Ver password</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                <button type="submit" (click)="login()" class="btn btn-primary btn-block">Ingresar</button>
             </form>
         </div>
     </div>

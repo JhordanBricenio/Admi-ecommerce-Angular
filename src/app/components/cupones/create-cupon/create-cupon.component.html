@@ -1,0 +1,71 @@
+<app-sidebar></app-sidebar>
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cupones</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista  todos los cupones.</p>
+
+    </div>
+</div>
+<form #clienteForm="ngForm">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de cupones</h5>
+        </div>
+        <div class="card-body">
+        <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Código del cupón</label>
+                    <input class="form-control" type="text" placeholder="Código del cupón"
+                        [(ngModel)]="cupon.codigo" name="codigo" required #nombre="ngModel">
+                    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            El codigo es obligatorio
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">Tipo</label>
+                    <select class="form-control custom-select" name="tipo" [(ngModel)]="cupon.tipo">
+                        <option [ngValue]="undefined" disabled selected>Seleccionar</option>
+                        <option value="Porcentaje">Porcentaje</option>
+                        <option value="Valor Fijo">Valor fijo</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="validationCustom01" class="form-label">Valor</label>
+                    <input class="form-control" type="number" placeholder="Valor de descuento"
+                        [(ngModel)]="cupon.valor" name="valor" required #apellido="ngModel">
+                    <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.touched)">
+                        <div *ngIf="apellido.errors.required">
+                            El valor es obligatorio
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="validationCustom01" class="form-label">Límite</label>
+                    <input class="form-control" type="number" placeholder="Límite máximo"
+                        [(ngModel)]="cupon.limite" name="limite" required #apellido="ngModel">
+                    <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.touched)">
+                        <div *ngIf="apellido.errors.required">
+                            El límte es obligatorio
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-info mr-3" (click)="create()" *ngIf="!cupon.id else elseBlock" 
+            [disabled]="!clienteForm.form.valid">Crear
+            </button>
+            <ng-template #elseBlock>
+                <button type="button" class="btn btn-info mr-3" (click)="update()"
+                [disabled]="!clienteForm.form.valid">Actualizar </button>
+            </ng-template>
+
+            <button [routerLink]="['/cupones']" class="btn btn-danger">Regresar</button>
+        </div>
+    </div>
+</form>

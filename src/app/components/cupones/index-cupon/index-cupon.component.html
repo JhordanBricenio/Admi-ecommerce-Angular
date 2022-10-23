@@ -1,0 +1,51 @@
+<app-sidebar></app-sidebar>
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cupones</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo lista todos los cupones.</p>
+    <p class="font-size-sm font-weight-medium pl-md-4">
+      <a class="text-nowrap" [routerLink]="['/cupones/registro']">Registrar nuevo<i class="cxi-angle-right font-size-base align-middle ml-1">
+      </i></a>
+    </p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm">
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Código</th>
+                    <th>Valor</th>
+                    <th>Tipo</th>
+                    <th>Límite</th>
+                    <th>Fecha</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let cupon of cupones, let indice=index">
+                  <tr>
+                    <th scope="row">{{cupon.codigo}}</th>
+                    <td>{{ cupon.valor}}</td>
+                    <td>{{ cupon.tipo }}</td>
+                    <td>{{ cupon.limite }}</td>
+                    <td>{{ cupon.create_at|date }}</td>
+                    <td>
+                      <div class="btn-group dropdown">
+                          <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opciones
+                          </button>
+                          <div class="dropdown-menu">
+                            <a [routerLink]="['/cupones/registro',cupon.id]" class="dropdown-item">Editar</a>
+                            <a style="cursor:pointer ;" class="dropdown-item" (click)="delete(cupon)">Eliminar</a>
+                          </div>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+      </div>
+</div>  
+

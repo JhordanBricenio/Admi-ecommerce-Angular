@@ -5,6 +5,7 @@ import { Marca } from 'src/app/models/marca';
 import { Product } from 'src/app/models/product';
 import { ProductoService } from 'src/app/services/producto.service';
 import Swal from 'sweetalert2';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 declare var jQuery: any;
 declare var $:any;
@@ -17,6 +18,8 @@ declare var iziToast: any;
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit {
+
+  public Editor = ClassicEditor;
 
   public producto: Product = new Product();
   public errors: string[];

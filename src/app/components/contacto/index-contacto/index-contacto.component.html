@@ -1,0 +1,73 @@
+<app-sidebar></app-sidebar>
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Mensajes</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista los mensajes enviados a la tienda.</p>
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Los mensajes</h5>
+    </div>
+    <div class="card-body">
+            <!-- Product review -->
+            <div class="mb-4 pb-4 border-bottom" *ngFor="let item of contactos">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                        <h5 class="mb-2 fs-lg">{{item.nombres}}</h5>
+                        <span class="d-block mb-3 fs-sm text-muted">{{item.fecha|date}}</span>
+                        <span class="badge bg-warning" *ngIf="item.estado=='Pendiente'">{{item.estado}}</span>
+                        <span class="badge bg-danger" *ngIf="item.estado=='Revisado'">{{item.estado}}</span>
+                    </div>
+                    <div class="col">
+                        <p class="mb-3">
+                            <a class="me-1 fw-bold text-decoration-none">{{item.email}}</a>
+                           {{item.mensaje}}
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a class="nav-link p-0 fs-sm" data-toggle="modal" [attr.data-target]="'#estadoModal-'+item.id">
+                                <i class="ci-chat me-2 fs-base align-middle mt-n1"></i>
+                                Leer mensaje
+                            </a>
+                            <div class="modal fade" id="estadoModal-{{item.id}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-card card" data-list="{&quot;valueNames&quot;: [&quot;name&quot;]}">
+                                      <div class="card-header">
+                          
+                                        <!-- Title -->
+                                        <h4 class="card-header-title" id="exampleModalCenterTitle">
+                                          Cerrar el mensaje
+                                        </h4>
+                          
+                                        <!-- Close -->
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                          
+                                      </div>
+                                   
+                                      <div class="card-body">
+                                        <p>Desea eliminar el mensaje?</p>
+                          
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <button *ngIf="!load_btn" type="button" class="btn btn-danger" (click)="cerrar(item)">Si, cerrar</button>
+                                        <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                            <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                                            Cerrando...
+                                          </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!--<app-pagination *ngIf="paginator" [paginator]="paginator" ></app-pagination>-->
+</div>

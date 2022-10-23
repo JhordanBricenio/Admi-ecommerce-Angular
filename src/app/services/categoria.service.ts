@@ -8,7 +8,8 @@ import {
 import { Router } from '@angular/router';
 import { GLOBAL } from './GLOBAL';
 import { Categoria } from '../models/categoria';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class CategoriaService {
   public url;
   private httheaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private Router: Router) {
+  constructor(private http: HttpClient) {
     this.url = GLOBAL.url;
   }
 
@@ -49,5 +50,17 @@ export class CategoriaService {
     });
   }
 
-  
+  subirFoto(file: File, id): Observable<HttpEvent<{}>> {
+    let formData = new FormData();
+    formData.append('archivo', file);
+    formData.append('id', id);
+
+    const req= new HttpRequest('POST',`${this.url}/categorias`+'/upload', formData,{
+      reportProgress:true
+    });
+
+
+    return this.http.request(req)
 }
+}
+

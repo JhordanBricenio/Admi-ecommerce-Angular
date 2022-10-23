@@ -8,6 +8,7 @@ import { GLOBAL } from './GLOBAL';
 import Swal from 'sweetalert2';
 import { Inventario } from '../models/inventario';
 import { Marca } from '../models/marca';
+import { Variedad } from '../models/variedad';
 
 declare var iziToast: any;
 
@@ -82,7 +83,7 @@ export class ProductoService {
     return this.http.get<Product>(`${this.url+'/products'}/${id}`).pipe(
       catchError((e) => {
         this.Router.navigate(['/productos']);
-        Swal.fire(' Error al editar', e.error.mensaje, 'error');
+        Swal.fire(' Error al obtener', e.error.mensaje, 'error');
         return throwError(() => e);
       })
     );
@@ -145,6 +146,21 @@ export class ProductoService {
         })
       );
   }
+
+  //agregar variedad
+  agregarVariedadProducto(variedad:Variedad) : Observable<Variedad>{
+    return this.http.post<Variedad>(this.url + '/products/variedad', variedad, {headers: this.httheaders }).pipe(
+      catchError(e => {
+        iziToast.error({
+          title: 'Error',
+          message: e.error.mensaje,
+        });
+        return throwError(() => e);
+      })
+
+    );
+  }
+
 
 }
 

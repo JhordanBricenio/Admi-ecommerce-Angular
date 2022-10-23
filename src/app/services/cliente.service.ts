@@ -5,6 +5,8 @@ import { Cliente } from '../models/cliente';
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Contacto } from '../models/contacto';
+import { AdminService } from './admin.service';
 
 declare var iziToast: any;
 
@@ -16,8 +18,15 @@ export class ClienteService {
   public url;
   private httheaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private Router: Router) {
+  constructor(private http: HttpClient, private Router: Router, private adminService: AdminService) {
     this.url = GLOBAL.url;
+  }
+  public agregarAuthorizationHeader() {
+    let token = this.adminService.token;
+    if (token != null) {
+      return this.httheaders.append('Authorization', 'Bearer ' + token);
+    }
+    return this.httheaders;
   }
 
   getClientes(page: number): Observable<any> {
@@ -94,4 +103,26 @@ export class ClienteService {
       })
     );
   }
+
+  //Listar contacos
+  getContactos(): Observable<Contacto[]> {
+    return this.http.get<Contacto[]>(this.url + '/contacto');
+  }
+
+  //Cambiar estado de contacto
+  updateContacto(contacto: Contacto): Observable<any> {
+    return this.http.put<any>(`${this.url+'/contacto'}/${contacto.id}`, contacto, { headers: this.httheaders }).pipe(
+      catchError(e => {
+        if (e.status == 400) {
+          return throwError(() => e);
+        }
+
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(() => e);
+      })
+    );
+  }
+  
+
 }

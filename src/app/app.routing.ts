@@ -10,10 +10,17 @@ import { ProductDetalleComponent } from "./components/productos/product-detalle/
 import { InventarioProductComponent } from "./components/productos/inventario-product/inventario-product.component";
 import { CategoriasComponent } from "./components/categorias/categorias.component";
 import { FormComponent } from "./components/categorias/form.component";
+import { CategoriaDetalleComponent } from "./components/categorias/categoria-detalle/categoria-detalle.component";
+import { IndexContactoComponent } from "./components/contacto/index-contacto/index-contacto.component";
+import { VariedadProductoComponent } from "./components/productos/variedad-producto/variedad-producto.component";
+import { GaleriaComponent } from "./components/productos/galeria/galeria.component";
+import { CreateCuponComponent } from "./components/cupones/create-cupon/create-cupon.component";
+import { IndexCuponComponent } from "./components/cupones/index-cupon/index-cupon.component";
 
 const appRoute:Routes=[
     {path:'', redirectTo:'inicio', pathMatch:'full'},
     {path:'inicio', component:InicioComponent},
+    {path:'login', component:LoginComponent},
     {path:'clientes', component:IndexClienteComponent},
     {path:'clientes/page/:page', component:IndexClienteComponent},
     {path:'clientes/registro', component:CreateClienteComponent},
@@ -24,10 +31,19 @@ const appRoute:Routes=[
     {path:'productos/registro/:id', component:CreateProductComponent},
     {path:'productos/page/:page', component:IndexProductComponent},
     {path:'productos/inventario/:id', component:InventarioProductComponent},
+    {path:'productos/variedad/:id', component:VariedadProductoComponent},
+    {path:'productos/galeria/:id', component:GaleriaComponent},
+    
+    {path:'cupones', component:IndexCuponComponent},
+    {path:'cupones/registro', component:CreateCuponComponent},
+    {path:'cupones/registro/:id', component:CreateCuponComponent},
 
     {path:'categorias', component:CategoriasComponent},
     {path:'categorias/registro', component:FormComponent},
     {path:'categorias/registro/:id', component:FormComponent},
+
+    {path:'contacto', component:IndexContactoComponent},
+
 
 
    /* {path:'panel', children:[
@@ -39,9 +55,6 @@ const appRoute:Routes=[
         {path:'productos/page/:page', component:IndexClienteComponent},
        
     ]},*/
-
-    {path:'login', component:LoginComponent}
-
 
 ]
 export const appRoutingProviders:any[]=[];

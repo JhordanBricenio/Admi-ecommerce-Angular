@@ -1,0 +1,42 @@
+<app-sidebar></app-sidebar>
+
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">
+            Este módulo añade la galería a todos los productos de la tienda.
+        </p>
+    </div>
+</div>
+<form #variedadForm="ngForm" enctype="multipart/form-data">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px">Galería para producto: {{producto.titulo}}</h5>
+        </div>
+        <div class="card-body" *ngIf="producto">
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Descripción</label>
+                            <input type="text" class="form-control" [(ngModel)]="galeria.descripcion"
+                                name="descripcion" type="text" placeholder="Descripción de imagen" required />
+                        </div>
+                        <div class="input-group mb-3">
+                            <input (change)="selecionarFoto($event)" type="file" class="form-control" id="inputGroupFile04"
+                              aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                            <button (click)="subirFoto()"  [disabled]="!fotoSeleccionada" class="btn btn-outline-secondary"
+                              type="button" id="inputGroupFileAddon04">Subir</button>
+                        </div>
+                    </div>
+                    <!--Tabla-->
+
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <button [routerLink]="['/productos']" class="btn btn-danger">Regresar</button>
+        </div>
+    </div>
+</form>
