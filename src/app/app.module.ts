@@ -27,6 +27,11 @@ import { VariedadProductoComponent } from './components/productos/variedad-produ
 import { GaleriaComponent } from './components/productos/galeria/galeria.component';
 import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
 import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupon.component';
+import { CreatePromocionComponent } from './components/promociones/create-promocion/create-promocion.component';
+import { IndexPromocionComponent } from './components/promociones/index-promocion/index-promocion.component';
+import { DetallePromocionComponent } from './components/promociones/detalle-promocion/detalle-promocion.component';
+import { IndexVentasComponent } from './components/ventas/index-ventas/index-ventas.component';
+import { DetalleVentasComponent } from './components/ventas/detalle-ventas/detalle-ventas.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,11 @@ import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupo
     GaleriaComponent,
     CreateCuponComponent,
     IndexCuponComponent,
+    CreatePromocionComponent,
+    IndexPromocionComponent,
+    DetallePromocionComponent,
+    IndexVentasComponent,
+    DetalleVentasComponent,
   ],
   imports: [
     BrowserModule,

@@ -58,7 +58,7 @@ export class ProductDetalleComponent implements OnInit {
       }
       else if(event.type=== HttpEventType.Response){
         let response:any= event.body;
-        this.producto=response.producto as Product;
+        this.producto=response.product as Product;
         
         this.modalService.notificarUpload.emit(this.producto);
         Swal.fire(

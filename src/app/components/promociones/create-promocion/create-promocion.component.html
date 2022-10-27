@@ -1,0 +1,74 @@
+<app-sidebar></app-sidebar>
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Promciones</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista  todos las promociones .</p>
+
+    </div>
+</div>
+<form #clienteForm="ngForm">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de promociones</h5>
+        </div>
+        <div class="card-body">
+        <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Titulo</label>
+                    <input class="form-control" type="text" placeholder="Titulo de la promoción"
+                        [(ngModel)]="promocion.titulo" name="titulo" required #nombre="ngModel">
+                    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            El Titulo es obligatorio
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Descuento %</label>
+                    <input class="form-control" type="number" placeholder="Valor de descuento"
+                        [(ngModel)]="promocion.descuento" name="descuento" required #apellido="ngModel">
+                    <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.touched)">
+                        <div *ngIf="apellido.errors.required">
+                            El Descuento es obligatorio
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Fecha Inicio</label>
+                    <input class="form-control" type="date"
+                        [(ngModel)]="promocion.fechainicio" name="fechainicio" required #apellido="ngModel">
+                    <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.touched)">
+                        <div *ngIf="apellido.errors.required">
+                            La fecha es obligatorio
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Fecha Fin</label>
+                    <input class="form-control" type="date" 
+                        [(ngModel)]="promocion.fechafin" name="fechafin" required #apellido="ngModel">
+                    <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.touched)">
+                        <div *ngIf="apellido.errors.required">
+                            La fecha es obligatorio
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-info mr-3" (click)="create()" *ngIf="!promocion.id else elseBlock" 
+            [disabled]="!clienteForm.form.valid">Crear
+            </button>
+            <ng-template #elseBlock>
+                <button type="button" class="btn btn-info mr-3" (click)="update()"
+                [disabled]="!clienteForm.form.valid">Actualizar </button>
+            </ng-template>
+
+            <button [routerLink]="['/promociones']" class="btn btn-danger">Regresar</button>
+        </div>
+    </div>
+</form>

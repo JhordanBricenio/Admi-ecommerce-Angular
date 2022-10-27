@@ -81,5 +81,15 @@ export class AdminService {
     this._usuario = null;
     localStorage.clear();
   }
+  //Filtrar ventas por fechas
+  getVentasByFecha(fechaInicio?:Date, fechaFin?:Date):Observable<any>{
+    
+    let url = 'http://localhost:9090/api/ventas/fechas';
+    if(fechaInicio != null && fechaFin != null){
+      url += `?fecha1=${fechaInicio}&fecha2=${fechaFin}`;
+    }
+    return this.http.get<any>(url);
+    
+  }
    
 }

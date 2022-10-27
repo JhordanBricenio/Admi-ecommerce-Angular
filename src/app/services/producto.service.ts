@@ -39,7 +39,19 @@ export class ProductoService {
     );
   }
 
-
+  //get productos paginados y fitrado
+  geProductsBySearch(page?:Number, filtro?:string):Observable<any>{
+    let url = 'http://localhost:9090/api/products';
+    if(page!=null && filtro==null){
+      url += '/page/'+page;
+    }else if(page!=null && filtro!=null){
+      url += '?filtro='+filtro;
+     // url +='?filtro='+filtro;
+    }
+    return this.http.get<any>(url);
+    
+  }
+  
   create(producto: Product) {
     return this.http
       .post(this.url + '/products', producto, { headers: this.httheaders })

@@ -16,33 +16,28 @@ export class IndexProductComponent implements OnInit {
 
   public pagination: any;
   productoSeleccionado: Product;
+  public filtro: string;
 
   constructor(
     private productSevice: ProductoService,
     private activateRoute: ActivatedRoute,
     private modalService: ModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.activateRoute.paramMap.subscribe((params) => {
-      let page: number = +params.get('page');
-      if (!page) {
-        page = 0;
-      }
-      this.productSevice
-        .getProducts(page)
-        .pipe(
-          tap((response) => {
-            (response.content as Product[]).forEach((product) => {
-            //  console.log(product.titulo);
-            });
-          })
-        )
-        .subscribe((response) => {
+    if (this.filtro == null) {
+      this.activateRoute.paramMap.subscribe((params) => {
+        let page: number = +params.get('page');
+        if (!page) {
+          page = 0;
+        }
+        this.productSevice.geProductsBySearch(page).subscribe((response) => {
           this.productos = response.content as Product[];
           this.pagination = response;
         });
-    });
+      });
+    }
+
     this.modalService.notificarUpload.subscribe((producto) => {
       this.productos = this.productos.map((productoOriginal) => {
         if (producto.id == productoOriginal.id) {
@@ -52,9 +47,18 @@ export class IndexProductComponent implements OnInit {
       });
     });
   }
+  filtrar() {
+    if (this.filtro != null) {
+      this.productSevice.geProductsBySearch(0,this.filtro).subscribe((response) => {
+        this.productos = response.content as Product[];
+      }
+      );
+      
+    }
+  }
 
-  
-  
+
+
 
 
   abrirModal(producto: Product) {

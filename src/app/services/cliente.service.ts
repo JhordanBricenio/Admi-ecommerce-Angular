@@ -124,5 +124,10 @@ export class ClienteService {
     );
   }
   
+  //Orden compra
+   //Obtener orden de compra
+   getOrdenCompra(id): Observable<any>{
+    return this.http.get(`${this.url+'/ventas/detalle'}/${id}`);
+  }
 
 }

@@ -1,24 +1,24 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Categoria } from 'src/app/models/categoria';
-import { CategoriaService } from 'src/app/services/categoria.service';
+import { Promocion } from 'src/app/models/promocion';
 import { ModalService } from 'src/app/services/modal.service';
+import { PromocionService } from 'src/app/services/promocion.service';
 import Swal from 'sweetalert2';
 
+
+
 @Component({
-  selector: 'app-categoria-detalle',
-  templateUrl: './categoria-detalle.component.html',
-  styleUrls: ['./categoria-detalle.component.css']
+  selector: 'app-detalle-promocion',
+  templateUrl: './detalle-promocion.component.html',
+  styleUrls: ['./detalle-promocion.component.css']
 })
-export class CategoriaDetalleComponent implements OnInit {
+export class DetallePromocionComponent implements OnInit {
 
-
-
-  @Input() categoria: Categoria;
+  @Input() promocion: Promocion;
   public fotoSeleccionada: File;
   progreso: number = 0;
 
-  constructor(private categoriaService: CategoriaService,
+  constructor(private promocionService: PromocionService,
     public modalService:ModalService) { }
 
   ngOnInit(): void {
@@ -27,10 +27,8 @@ export class CategoriaDetalleComponent implements OnInit {
   selecionarFoto(event) {
     this.fotoSeleccionada = event.target.files[0];
     this.progreso = 0;
-    console.log(this.fotoSeleccionada);
     if (this.fotoSeleccionada.type.indexOf('image') < 0) {
       Swal.fire('Error selecionar Imagen ', 'el archivo debe ser de tipo Imagen', 'error');
-      //Limpiar el input
       this.fotoSeleccionada = null;
     }
 
@@ -45,14 +43,14 @@ export class CategoriaDetalleComponent implements OnInit {
       );
 
     } else {
-      this.categoriaService.subirFoto(this.fotoSeleccionada, this.categoria.id).subscribe(
+      this.promocionService.subirFoto(this.fotoSeleccionada, this.promocion.id).subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progreso = Math.round((event.loaded / event.total) * 100);
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
-            this.categoria = response.categoria as Categoria;
-            this.modalService.notificarUpload.emit(this.categoria)
+            this.promocion = response.promocion as Promocion;
+            this.modalService.notificarUpload.emit(this.promocion)
             Swal.fire('La foto se ha subido completamente!', response.mensaje, 'success');
           }
         });
@@ -64,5 +62,6 @@ cerrarModal(){
   this.fotoSeleccionada = null;
   this.progreso = 0;
 }
+
 
 }
