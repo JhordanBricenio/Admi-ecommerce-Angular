@@ -22,52 +22,66 @@
       <input class="form-control col-4 mb-3 mr-sm-4" type="text" id="inline-form-input-name" name="filtro"
        [(ngModel)]="filtro" placeholder="Titulo">
       <button class="btn btn-primary mb-3" type="submit" (click)="filtrar()">Buscar Producto</button>
+      <button class="btn btn-danger mb-3 ml-2" type="submit" (click)="reset()">Resetear</button>
     </form>
   </div>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-bordered " >
-        <thead class="thead-dark">
-          <tr>
-            <th>Portada</th>
-            <th>Titulo</th>
-            <th>Stock</th>
-            <th>Precio</th>
-            <th>Opciones</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let producto of productos, let indice=index">
-          <tr>
-            <td><img (click)="abrirModal(producto)" *ngIf="producto?.imagen"
-                src="http://localhost:9090/api/upload/img/{{producto.imagen}}" alt="{{producto.imagen}}"
-                class="img-thumbnail rounded" style="width: 44px; cursor:pointer;">
-
-              <img (click)="abrirModal(producto)" *ngIf="!producto?.imagen" src="http://localhost:9090/images/notUser.png"
-                alt="Sin Foto" class="img-thumbnail rounded" style="width: 44px; cursor:pointer;">
-            </td>
-
-            <td>{{ producto.titulo }}</td>
-            <td>{{ producto.stock }}</td>
-            <td>{{ producto.precio }}</td>
-            <td>
-              <div class="btn-group dropdown">
-                <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  Opciones
-                </button>
-                <div class="dropdown-menu">
-                  <a [routerLink]="['/productos/registro', producto.id]" class="dropdown-item">Editar</a>
-                  <a (click)="delete(producto)" class="dropdown-item" style="cursor:pointer ;">Eliminar</a>
-                  <a class="dropdown-item" [routerLink]="['/productos/inventario', producto.id]" >Inventario</a>
-                  <a class="dropdown-item" [routerLink]="['/productos/variedad', producto.id]" >Variedad</a>
-                  <a class="dropdown-item" [routerLink]="['/productos/galeria', producto.id]" >Galeria</a>
+  <ng-container *ngIf="productos.length>0">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered " >
+          <thead class="thead-dark">
+            <tr>
+              <th>Portada</th>
+              <th>Titulo</th>
+              <th>Stock</th>
+              <th>Precio</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let producto of productos, let indice=index">
+            <tr>
+              <td><img (click)="abrirModal(producto)" *ngIf="producto?.imagen"
+                  src="http://localhost:9090/api/upload/img/{{producto.imagen}}" alt="{{producto.imagen}}"
+                  class="img-thumbnail rounded" style="width: 44px; cursor:pointer;">
+  
+                <img (click)="abrirModal(producto)" *ngIf="!producto?.imagen" src="http://localhost:9090/images/notUser.png"
+                  alt="Sin Foto" class="img-thumbnail rounded" style="width: 44px; cursor:pointer;">
+              </td>
+  
+              <td>{{ producto.titulo }}</td>
+              <td>{{ producto.stock }}</td>
+              <td>{{ producto.precio }}</td>
+              <td>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Opciones
+                  </button>
+                  <div class="dropdown-menu">
+                    <a [routerLink]="['/productos/registro', producto.id]" class="dropdown-item">Editar</a>
+                    <a (click)="delete(producto)" class="dropdown-item" style="cursor:pointer ;">Eliminar</a>
+                    <!--<a class="dropdown-item" [routerLink]="['/productos/inventario', producto.id]" >Inventario</a>-->
+                    <a class="dropdown-item" [routerLink]="['/productos/variedad', producto.id]" >Variedad</a>
+                    <a class="dropdown-item" [routerLink]="['/productos/galeria', producto.id]" >Galeria</a>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+
+  </ng-container>
+  <ng-container  *ngIf="productos.length<=0" >
+    <div class="row mt-2 ml-2">
+      <div class="col-md-8">
+        <div class="alert alert-danger text-center" role="alert">
+          No se encontraron productos
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
   <product-pagination *ngIf="pagination" [pagination]="pagination"></product-pagination>
 </div>

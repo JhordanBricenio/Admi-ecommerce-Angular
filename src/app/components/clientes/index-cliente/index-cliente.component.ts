@@ -15,6 +15,7 @@ export class IndexClienteComponent implements OnInit {
 
   clientes: Cliente[] = [];
   paginator:any;
+  public filtro: string;
   
 
   constructor(private clienteService:ClienteService,
@@ -27,22 +28,29 @@ export class IndexClienteComponent implements OnInit {
       if (!page) {
         page = 0;
       }
-      this.clienteService
-        .getClientes(page)
-        .pipe(
-          tap((response) => {
-            (response.content as Cliente[]).forEach((cliente) => {
-              //console.log(cliente.name);
-            });
-          })
-        )
-        .subscribe(
+      this.clienteService.getClientesBySearch(page).subscribe(
           response => {
             this.clientes = response.content as Cliente[];
             this.paginator=response;
           }
         );
     });
+  }
+
+  filtrar() {
+    if (this.filtro != null) {
+      console.log(this.filtro);
+      
+      this.clienteService.getClientesBySearch(0,this.filtro).subscribe((response) => {
+        this.clientes = response.clientes as Cliente[];        
+      }
+      );
+      
+    }
+  }
+  reset(){
+    this.filtro="";
+    this.ngOnInit();
   }
 
   delete(cliente: Cliente): void {

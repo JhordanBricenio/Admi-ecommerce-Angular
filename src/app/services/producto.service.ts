@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Inventario } from '../models/inventario';
 import { Marca } from '../models/marca';
 import { Variedad } from '../models/variedad';
+import { ClienteService } from './cliente.service';
 
 declare var iziToast: any;
 
@@ -20,7 +21,7 @@ export class ProductoService {
   public url;
   private httheaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private Router: Router) {
+  constructor(private http: HttpClient, private Router: Router, private clienteService: ClienteService) {
     this.url = GLOBAL.url;
   }
   getProducts(page: number): Observable<any> {
@@ -31,7 +32,6 @@ export class ProductoService {
       }),
       map((response: any) => {
         (response.content as Product[]).map((product) => {
-         // product.titulo = product.titulo.toUpperCase();
           return product;
         });
         return response;
@@ -39,14 +39,13 @@ export class ProductoService {
     );
   }
 
-  //get productos paginados y fitrado
   geProductsBySearch(page?:Number, filtro?:string):Observable<any>{
     let url = 'http://localhost:9090/api/products';
-    if(page!=null && filtro==null){
-      url += '/page/'+page;
-    }else if(page!=null && filtro!=null){
+
+    if(filtro){
       url += '?filtro='+filtro;
-     // url +='?filtro='+filtro;
+    }else{
+      url += '/page/'+page;
     }
     return this.http.get<any>(url);
     
@@ -77,7 +76,7 @@ export class ProductoService {
   }
 
   update(producto: Product): Observable<any> {
-    return this.http.put<any>(`${this.url+'/products'}/${producto.id}`, producto, { headers: this.httheaders }).pipe(
+    return this.http.put<any>(`${this.url+'/products'}/${producto.id}`, producto, { headers: this.clienteService.agregarAuthorizationHeader() }).pipe(
       catchError(e => {
         if (e.status == 400) {
           return throwError(() => e);

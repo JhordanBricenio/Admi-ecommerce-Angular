@@ -45,6 +45,18 @@ export class ClienteService {
     );
   }
 
+  getClientesBySearch(page?:Number, filtro?:string):Observable<any>{
+    let url = 'http://localhost:9090/api/clientes';
+
+    if(filtro){
+      url += '?filtro='+filtro;
+    }else{
+      url += '/page/'+page;
+    }
+    return this.http.get<any>(url);
+    
+  }
+
   create(cliente: Cliente) {
     return this.http
       .post(this.url + '/clientes', cliente, { headers: this.httheaders })

@@ -49,17 +49,19 @@ export class IndexProductComponent implements OnInit {
   }
   filtrar() {
     if (this.filtro != null) {
+      console.log(this.filtro);
+      
       this.productSevice.geProductsBySearch(0,this.filtro).subscribe((response) => {
-        this.productos = response.content as Product[];
+        this.productos = response.products as Product[];        
       }
       );
       
     }
   }
-
-
-
-
+  reset(){
+    this.filtro = null;
+    this.ngOnInit();
+  }
 
   abrirModal(producto: Product) {
     this.productoSeleccionado = producto;

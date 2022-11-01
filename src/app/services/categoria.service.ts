@@ -5,11 +5,9 @@ import {
   HttpHeaders,
   HttpRequest,
 } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { GLOBAL } from './GLOBAL';
 import { Categoria } from '../models/categoria';
-import { catchError, map, Observable, throwError } from 'rxjs';
-import Swal from 'sweetalert2';
+import { Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

@@ -17,51 +17,61 @@
       <div class="card-header">
           <form class="form-inline pt-2">
               <label class="sr-only" for="inline-form-input-name">Apellidos</label>
-              <input class="form-control mb-3 mr-sm-4" type="text" id="inline-form-input-name" placeholder="Nombres">
-              <label class="sr-only" for="inline-form-input-username">Correo</label>
-              <div class="input-group mb-3 mr-sm-4">
-              <div class="input-group-prepend">
-                  <div class="input-group-text">@</div>
-              </div>
-              <input class="form-control" type="text" id="inline-form-input-username" placeholder="Correo">
-              </div>
-          
-              <button class="btn btn-primary mb-3" type="submit">Buscar cliente</button>
+              <input class="form-control mb-3 mr-sm-4" type="text" id="inline-form-input-name"
+              name="filtro" [(ngModel)]="filtro" placeholder="Apellidos">          
+              <button class="btn btn-primary mb-3" type="submit" (click)="filtrar()">
+                Buscar cliente
+              </button>
+              <button class="btn btn-danger mb-3 ml-2" type="submit" (click)="reset()">Resetear</button>
           </form>
       </div>
-      <div class="card-body">
-          <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>#</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Opciones</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let cliente of clientes, let indice=index">
-                  <tr>
-                    <th scope="row">{{cliente.id}}</th>
-                    <td>{{ cliente.nombres }}</td>
-                    <td>{{ cliente.apellidos }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>
-                      <div class="btn-group dropdown">
-                          <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Opciones
-                          </button>
-                          <div class="dropdown-menu">
-                            <a [routerLink]="['/clientes/registro',cliente.id]" class="dropdown-item">Editar</a>
-                            <a style="cursor:pointer ;" class="dropdown-item" (click)="delete(cliente)">Eliminar</a>
-                          </div>
-                        </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
+   <ng-container *ngIf="clientes.length>0">
+    <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let cliente of clientes, let indice=index">
+              <tr>
+                <th scope="row">{{cliente.id}}</th>
+                <td>{{ cliente.nombres }}</td>
+                <td>{{ cliente.apellidos }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>
+                  <div class="btn-group dropdown">
+                      <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones
+                      </button>
+                      <div class="dropdown-menu">
+                        <a [routerLink]="['/clientes/registro',cliente.id]" class="dropdown-item">Editar</a>
+                        <a style="cursor:pointer ;" class="dropdown-item" (click)="delete(cliente)">Eliminar</a>
+                      </div>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
       </div>
+  </div>
+   </ng-container>
+   <ng-container *ngIf="clientes.length<=0" >
+    <div class="row mt-2 ml-2">
+      <div class="col-md-8">
+        <div class="alert alert-danger text-center" role="alert">
+          No se encontraron clientes
+        </div>
+      </div>
+    </div>
+
+   </ng-container>
+   
+   
 <app-pagination *ngIf="paginator" [paginator]="paginator" ></app-pagination>
 </div>  
